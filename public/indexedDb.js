@@ -11,6 +11,8 @@ request.onupgradeneeded = function (event) {
 };
 
 request.onsuccess = function (event) {
+    db = event.target.result;
+
     if (navigator.onLine) {
         getDb();
     }
@@ -20,8 +22,7 @@ request.onerror = function (e) {
     console.log("There was an error");
 };
 
-function getDb (event) {
-    db = event.target.result;
+function getDb() {
     tx = db.transaction("newTransaction", "readwrite");
     store = tx.objectStore("newTransaction");
 
@@ -35,7 +36,7 @@ function getDb (event) {
             })
                 .then((response) => response.json())
                 .then(() => {
-                    tx = db.transaction("newTransaction", "readwrite");
+                    tx = db.transaction("[newTransaction]", "readwrite");
                     store = tx.objectStore("newTransaction");
 
                     store.clear();
@@ -45,7 +46,7 @@ function getDb (event) {
 }
 
 function saveTransaction(data) {
-    tx = db.transaction("newTransaction", "readwrite");
+    tx = db.transaction("[newTransaction]", "readwrite");
     store = tx.objectStore("newTransaction");
 
     store.add(data);
