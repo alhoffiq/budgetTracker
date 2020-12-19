@@ -3,7 +3,7 @@ let db, tx, store;
 const request = window.indexedDB.open("budgetTracker", 1);
 
 request.onupgradeneeded = function (event) {
-    const db = event.target.result;
+    db = event.target.result;
 
     db.createObjectStore("newTransaction", {
         autoIncrement: true
@@ -12,7 +12,7 @@ request.onupgradeneeded = function (event) {
 
 request.onsuccess = function (event) {
     db = event.target.result;
-
+    
     if (navigator.onLine) {
         getDb();
     }
@@ -33,6 +33,10 @@ function getDb() {
             fetch('/api/transaction/bulk', {
                 method: 'POST',
                 body: JSON.stringify(getAll.result),
+                headers: {
+                    Accept: 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json',
+                },
             })
                 .then((response) => response.json())
                 .then(() => {
