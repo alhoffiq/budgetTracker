@@ -1,6 +1,6 @@
 let db, tx, store;
 
-const request = window.indexedDB.open("budgetTracker", 3);
+const request = window.indexedDB.open("budgetTracker", 4);
 
 request.onupgradeneeded = function (event) {
     db = event.target.result;
