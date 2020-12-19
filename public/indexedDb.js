@@ -1,6 +1,6 @@
 let db, tx, store;
 
-const request = window.indexedDB.open("budgetTracker", 1);
+const request = window.indexedDB.open("budgetTracker", 3);
 
 request.onupgradeneeded = function (event) {
     db = event.target.result;
@@ -49,7 +49,7 @@ function getDb() {
     };
 }
 
-function saveTransaction(data) {
+function saveRecord(data) {
     tx = db.transaction("[newTransaction]", "readwrite");
     store = tx.objectStore("newTransaction");
 
