@@ -11,9 +11,9 @@ const staticFilesToPreCache = [
     "/",
     "/index.js",
     "/manifest.webmanifest",
+    "/indexedDb.js.js",
     "/styles.css",
-    "/index.html",
-    "/indexedDb.js"
+    "/index.html"
 ].concat(iconFiles);
 
 
@@ -50,7 +50,7 @@ self.addEventListener("activate", function (evt) {
 // fetch
 self.addEventListener("fetch", function (evt) {
     const { url } = evt.request;
-    if (url.includes("/all") || url.includes("/find")) {
+    if (url.includes("/api")) {
         evt.respondWith(
             caches.open(DATA_CACHE_NAME).then(cache => {
                 return fetch(evt.request)
